@@ -111,4 +111,35 @@ typedef struct {
 
 extern volatile rpi_gpio_t *rpi_gpio;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+    void rpi_gpio_fsel(uint8_t pin, Rpi_Gpio_Function_Select mode);
+
+    void rpi_gpio_write(uint8_t pin, uint8_t level);
+    uint32_t rpi_gpio_read(uint8_t pin);
+    uint32_t rpi_gpio_status(uint8_t pin);
+
+    void rpi_gpio_enable_Redge(uint8_t pin);
+    void rpi_gpio_disable_Redge(uint8_t pin);
+    void rpi_gpio_enable_Fedge(uint8_t pin);
+    void rpi_gpio_disable_Fedge(uint8_t pin);
+    void rpi_gpio_enable_high(uint8_t pin);
+    void rpi_gpio_disable_high(uint8_t pin);
+    void rpi_gpio_enable_low(uint8_t pin);
+    void rpi_gpio_disable_low(uint8_t pin);
+    void rpi_gpio_disable_low(uint8_t pin);
+    void rpi_gpio_disable_low(uint8_t pin);
+    void rpi_gpio_enable_async_Fedge(uint8_t pin);
+    void rpi_gpio_enable_async_Fedge(uint8_t pin);
+    void rpi_gpio_enable_async_Fedge(uint8_t pin);
+
+    void rpi_gpio_pud(Rpi_Gpio_Pud_Select mode);
+    void rpi_gpio_pudclk(uint8_t pin);
+
+#ifdef __cplusplus
+}
+#endif
+
  #endif

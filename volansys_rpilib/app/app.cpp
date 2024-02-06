@@ -10,6 +10,7 @@
  */
 
  #include "rpi_init.h"
+ #include "user_lib/inc/SSD1306.hpp"
  #include <iostream>
 
  int main()
@@ -22,6 +23,14 @@
     else
     {
         std::cout << "Init failed!" << std::endl;
+    }
+
+    //Dummy call from user lib
+    dummy_func();
+
+    if(rpi_close() == 0)
+    {
+        std::cout << "rpi peripherals unmapped" << std::endl;
     }
 
     

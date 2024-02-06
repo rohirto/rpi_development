@@ -9,6 +9,7 @@
  * 
  */
 
+//Includes
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
@@ -20,16 +21,33 @@
 
 #include "rpi_init.h"
 #include "rpi_gpio.h"
+#include "rpi_i2c.h"
 
+
+//Globals
 uint32_t *rpi_peripherals_base;
 uint32_t rpi_peripherals_size;
 uint32_t *rpi_peripherals;
 
 static uint8_t pud_type_rpi4 = 0;
 
+//Func prototypes
 static void *mapmem(const char *msg, size_t size, int fd, off_t off);
 static void unmapmem(void **pmem, size_t size);
 
+/**
+ * @brief Init the rpi
+ * In the init process (assuming that program is executed with sudo command), the program will read the peripherals adderess and create a memoery map
+ * to share the peripherals with user application
+ * 
+ * /dev/mem provides access to the system's physical memory, not the virtual memory.
+ * The mapmem function internally calls mmap to map a region of memory. 
+ * mmap then maps a region of memory starting from the specified base address (rpi_peripherals_base) with a size equal to rpi_peripherals_size. 
+ * The mapped memory is set to allow both reading and writing (PROT_READ | PROT_WRITE) and is shared with other processes (MAP_SHARED). 
+ * The mapping is performed using the file descriptor memfd associated with /dev/mem.
+ * 
+ * @return int 
+ */
 int rpi_init(void)
 {
     int  memfd;
@@ -115,12 +133,13 @@ int rpi_init(void)
         //All this registers are mapped as structs and defined in their individual file
         
         rpi_gpio      = (rpi_gpio_t*)(rpi_peripherals + RPI_GPIO_BASE/4);
+        rpi_i2c0      = (rpi_i2c_t*)(rpi_peripherals + RPI_I2C0/4);
+        rpi_i2c1      = (rpi_i2c_t*)(rpi_peripherals + RPI_I2C1/4);
         /*
         rpi_sys_timer = (rpi_sys_timer_t*)(rpi_peripherals + RPI_SYS_TIMER/4);
         rpi_pwm       = (rpi_pwm_t*)(rpi_peripherals + RPI_PWM/4);
         rpi_pwm_clk   = (rpi_pwm_clk_t*) (rpi_peripherals + RPI_PWM_CLK/4);
-        rpi_i2c0      = (rpi_i2c_t*)(rpi_peripherals + RPI_I2C0/4);
-        rpi_i2c1      = (rpi_i2c_t*)(rpi_peripherals + RPI_I2C1/4);
+        
         rpi_spi0      = (rpi_spi_t*)(rpi_peripherals + RPI_SPI0/4);
         rpi_uart      = (rpi_uart_t*) (rpi_peripherals + RPI_UART/4);
         */
@@ -160,6 +179,12 @@ int rpi_init(void)
     return ok;
 }
 
+
+/**
+ * @brief Close the peripherals, unmap the mapped mem
+ * 
+ * @return int 
+ */
 int rpi_close(void)
 {
     unmapmem((void**) &rpi_peripherals, rpi_peripherals_size);

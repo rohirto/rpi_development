@@ -12,7 +12,8 @@
  #ifndef RPI_INIT_H
  #define RPI_INIT_H
 
-#include <sys/mman.h>
+//Includes 
+#include <sys/mman.h> //Needed for memory mapping
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
