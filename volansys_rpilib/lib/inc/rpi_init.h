@@ -50,6 +50,8 @@
 /*! Alternate size for RPI  4 */
 #define BCM2835_RPI4_PERI_SIZE          0x01800000
 
+#define BCM2835_RPI5_PERI_BASE          0x7C000000
+
 #ifdef __cplusplus
 extern "C" {
 #endif

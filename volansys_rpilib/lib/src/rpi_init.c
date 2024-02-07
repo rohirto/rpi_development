@@ -90,7 +90,7 @@ int rpi_init(void)
                     (buf[1] == 0x00) &&
                     (buf[2] == 0x00) &&
                     (buf[3] == 0x00) &&
-                    ((base_address == BCM2835_PERI_BASE) || (base_address == BCM2835_RPI2_PERI_BASE) || (base_address == BCM2835_RPI4_PERI_BASE)))
+                    ((base_address == BCM2835_PERI_BASE) || (base_address == BCM2835_RPI2_PERI_BASE) || (base_address == BCM2835_RPI4_PERI_BASE) || (base_address == BCM2835_RPI5_PERI_BASE)))
             {
                 rpi_peripherals_base = (uint32_t *)(intptr_t)base_address;
                 rpi_peripherals_size = (size_t)peri_size;

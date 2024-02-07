@@ -1,3 +1,6 @@
 {
-    "cmake.sourceDirectory": "/home/paras/rpi_development/volansys_rpilib"
+    "cmake.sourceDirectory": "/home/rohirto/rpi_development/volansys_rpilib",
+    "files.associations": {
+        "lgpio.h": "c"
+    }
 }

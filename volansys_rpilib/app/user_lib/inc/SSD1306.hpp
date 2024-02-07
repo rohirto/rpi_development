@@ -26,7 +26,7 @@
     public:
         SSD1306();
 
- }
+ };
 
  void dummy_func();
  
